@@ -1,0 +1,17 @@
+{
+  "name": "nova-ios",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nova - assistente pessoal para iOS",
+  "scripts": {
+    "cap:add:ios": "npx cap add ios --packagemanager SPM",
+    "cap:sync": "npx cap sync ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/ios": "^8.0.0"
+  }
+}

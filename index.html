@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nova">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Nova</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#090b10;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif}body{min-height:100vh}.app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 20px) 18px calc(env(safe-area-inset-bottom) + 14px)}header{display:flex;align-items:center;gap:12px;margin-bottom:20px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#fff,#8ea0ff);color:#111;display:grid;place-items:center;font-weight:800;font-size:20px}h1{font-size:28px;margin:0}.status{font-size:13px;color:#9da4b5;margin-top:3px}.card{background:#12151d;border:1px solid #252a36;border-radius:20px;padding:16px;flex:1;min-height:0}#messages{display:flex;flex-direction:column;gap:10px;max-height:100%;overflow:auto}.msg{padding:12px 14px;border-radius:16px;line-height:1.4;white-space:pre-wrap}.nova{background:#1a1f2b}.user{background:#252b39;align-self:flex-end}form{display:flex;gap:9px;margin-top:12px}input{flex:1;min-width:0;background:#12151d;color:#fff;border:1px solid #303645;border-radius:16px;padding:15px;font-size:16px;outline:none}button{border:0;border-radius:16px;padding:0 18px;background:#fff;color:#111;font-weight:700;font-size:15px}.hint{font-size:12px;color:#858c9c;text-align:center;margin-top:8px}
+</style></head>
+<body><div class="app"><header><div class="logo">N</div><div><h1>Nova</h1><div class="status">Assistente • app</div></div></header><div class="card"><div id="messages"><div class="msg nova">Oi! Pode mandar um comando.</div></div></div><form id="form"><input id="command" autocomplete="off" placeholder="Digite um comando..."><button type="submit">Enviar</button></form><div class="hint">Nova • aplicativo iOS</div></div>
+<script>
+const APPS={youtube:{scheme:'youtube://',web:'https://www.youtube.com/',name:'YouTube'},whatsapp:{scheme:'whatsapp://',web:'https://www.whatsapp.com/',name:'WhatsApp'},spotify:{scheme:'spotify://',web:'https://open.spotify.com/',name:'Spotify'},instagram:{scheme:'instagram://',web:'https://www.instagram.com/',name:'Instagram'},telegram:{scheme:'tg://',web:'https://telegram.org/',name:'Telegram'}};
+const form=document.getElementById('form'),input=document.getElementById('command'),messages=document.getElementById('messages');
+function add(text,who){const el=document.createElement('div');el.className='msg '+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight}
+function findApp(c){for(const key in APPS){if(c.includes(key))return APPS[key]}return null}
+function openApp(app){add('Abrindo '+app.name+' para você...','nova');let fallback=setTimeout(()=>{window.location.href=app.web},1200);window.location.href=app.scheme;setTimeout(()=>clearTimeout(fallback),2500)}
+form.addEventListener('submit',e=>{e.preventDefault();const c=input.value.trim();if(!c)return;add(c,'user');input.value='';const lower=c.toLowerCase();const app=findApp(lower);if((/^(abra|abrir|abre|open|inicie|iniciar)/.test(lower)||lower.includes('abre o '))&&app){setTimeout(()=>openApp(app),150);return}if(lower.includes('youtube')){setTimeout(()=>openApp(APPS.youtube),150);return}if(lower.includes('whatsapp')){setTimeout(()=>openApp(APPS.whatsapp),150);return}if(lower.includes('spotify')){setTimeout(()=>openApp(APPS.spotify),150);return}if(lower.includes('instagram')){setTimeout(()=>openApp(APPS.instagram),150);return}if(lower.includes('telegram')){setTimeout(()=>openApp(APPS.telegram),150);return}setTimeout(()=>add('Entendi o comando: “'+c+'”. Ainda não tenho uma ação configurada para esse comando.','nova'),150)});
+</script></body></html>
